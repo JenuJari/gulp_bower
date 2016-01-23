@@ -4,12 +4,20 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var clean = require('gulp-clean');
+var webserver = require('gulp-webserver');
+
 var path = {
     'assets': "./assets",
     'bower': "./bower_components",
     'public': "./public"
 };
 
+gulp.task('webserver', function () {
+    return gulp.src(path.public)
+        .pipe(webserver({
+            fallback: 'index.html'
+        }));
+});
 gulp.task('clean', function () {
     gulp.src(path.public + '/css/**/*.css', {read: false})
         .pipe(clean());
@@ -64,3 +72,4 @@ gulp.task('watch', function () {
     gulp.watch(path.assets + '/scripts/**/*.js', ['scripts']);
 });
 gulp.task('default', ['clean', 'styles', 'scripts']);
+gulp.task('serve', ['default', 'webserver', 'watch']);
