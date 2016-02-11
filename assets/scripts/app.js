@@ -10,6 +10,7 @@ requirejs.config({
 });
 
 define(['jquery'], function ($) {
+    'use strict';
     console.log('jquery version : ' + $.fn.jquery);
 });
 
